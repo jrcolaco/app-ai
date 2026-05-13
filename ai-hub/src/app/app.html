@@ -1,0 +1,69 @@
+<div style="width: 750px; margin: auto; text-align: center; margin-top: 30px;">
+
+  <h1>AI HUB 🚀</h1>
+  @if (locationName()) {
+    <p>
+      📍 {{ locationName() }} <br>
+      🌦️ {{ weatherInfo() }}
+    </p>
+  }
+
+  <!-- MODES -->
+  <div>
+    <button (click)="setMode('chat')">💬 Chat</button>
+    <button (click)="setMode('image')">🖼️ Image</button>
+  </div>
+
+  <hr>
+
+  @if (loading()) {
+    <p>⏳ Loading...</p>
+  }
+
+  <!-- CHAT -->
+  @if (mode() === 'chat') {
+
+    <input
+      [value]="message()"
+      (input)="updateInput($event)"
+      (keydown.enter)="send()"
+      placeholder="Type or speak..."
+      style="width: 80%; padding: 10px;"
+    />
+
+    <br><br>
+
+    <button (click)="send()">Send</button>
+    <button (click)="speak()">🔊 Hear</button>
+
+    @if (isRecording()) {
+      <button (click)="stopRecording()">⛔ Stop</button>
+    } @else {
+      <button (click)="startRecording()">🎤 Speak</button>
+    }
+
+    <p>{{ response() }}</p>
+  }
+
+  <!-- IMAGE -->
+  @if (mode() === 'image') {
+
+    <input
+      [value]="message()"
+      (input)="updateInput($event)"
+      placeholder="Describe image..."
+      style="width: 80%; padding: 10px;"
+    />
+
+    <br><br>
+
+    <button (click)="generateImage()">Generate</button>
+
+    @if (imageUrl()) {
+      <br><br>
+      <img [src]="imageUrl()" width="400" />
+    }
+  }
+
+</div>
+

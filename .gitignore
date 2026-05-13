@@ -1,0 +1,12 @@
+# Angular
+ai-hub/node_modules
+ai-hub/dist
+ai-hub/.angular
+ai-hub/.vscode
+
+# Python
+server/__pycache__/
+server/*.pyc
+
+# Env
+.env
