@@ -43,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
   visionInterval: any = null;
   countdownTimer: any = null;
 
+  audioCtx: AudioContext | null = null;
+
   mediaRecorder: MediaRecorder | null = null;
   chunks: BlobPart[] = [];
 
@@ -70,6 +72,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   handleVisionMode(): void {
+    if (!this.audioCtx) {
+      this.audioCtx = new AudioContext();
+    }
+    this.audioCtx.resume();
     this.setMode('vision');
     this.startVision();
   }
@@ -270,14 +276,14 @@ export class AppComponent implements OnInit, OnDestroy {
         count--;
         this.visionCountdown.set(count);
 
-        this.playBeep();
-
         if (count <= 0) {
           clearInterval(this.countdownTimer);
           this.countdownTimer = null;
 
-          this.captureImage();
-          this.stopVision();
+          setTimeout(() => {
+            this.captureImage();
+            this.stopVision();
+          }, 0);
         }
 
       }, 1000);
@@ -290,10 +296,13 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  // ✅ CAPTURE IMAGE
   captureImage(): void {
-    const video = this.videoRef.nativeElement;
-    const canvas = this.canvasRef.nativeElement;
+    const video = this.videoRef?.nativeElement;
+    const canvas = this.canvasRef?.nativeElement;
+
+    if (!video || !canvas || video.videoWidth === 0) return;
+
+    this.playBeep();
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -304,12 +313,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.visionImage.set(canvas.toDataURL('image/png'));
   }
 
-  // ✅ SOUND
   playBeep(): void {
-    const audio = new Audio(
-      'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAABAAABAgAZGF0YQAAAAA='
-    );
-    audio.play();
+    try {
+      if (!this.audioCtx) return;
+
+      const oscillator = this.audioCtx.createOscillator();
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(800, this.audioCtx.currentTime);
+
+      oscillator.connect(this.audioCtx.destination);
+      oscillator.start();
+
+      setTimeout(() => {
+        oscillator.stop();
+      }, 100);
+
+    } catch (e) {
+      console.warn('Beep failed:', e);
+    }
   }
 
   // ✅ STOP EVERYTHING
