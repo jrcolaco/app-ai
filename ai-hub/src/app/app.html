@@ -1,26 +1,27 @@
-<div style="width: 750px; margin: auto; text-align: center; margin-top: 30px;">
+<div class="container">
 
   <h1>AI HUB 🚀</h1>
+
   @if (locationName()) {
-    <p>
+    <p class="weather">
       📍 {{ locationName() }} <br>
       🌦️ {{ weatherInfo() }}
     </p>
   }
 
-  <!-- MODES -->
-  <div>
+  <div class="menu">
     <button (click)="setMode('chat')">💬 Chat</button>
     <button (click)="setMode('image')">🖼️ Image</button>
+    <button (click)="handleVisionMode()">👁️ Vision</button>
   </div>
 
   <hr>
 
   @if (loading()) {
-    <p>⏳ Loading...</p>
+    <p class="loading">⏳ Loading...</p>
   }
 
-  <!-- CHAT -->
+  <!-- ✅ CHAT -->
   @if (mode() === 'chat') {
 
     <input
@@ -28,42 +29,67 @@
       (input)="updateInput($event)"
       (keydown.enter)="send()"
       placeholder="Type or speak..."
-      style="width: 80%; padding: 10px;"
     />
 
-    <br><br>
+    <div class="actions">
+      <button (click)="send()">Send</button>
+      <button (click)="speak()">🔊 Hear</button>
 
-    <button (click)="send()">Send</button>
-    <button (click)="speak()">🔊 Hear</button>
-
-    @if (isRecording()) {
-      <button (click)="stopRecording()">⛔ Stop</button>
-    } @else {
-      <button (click)="startRecording()">🎤 Speak</button>
-    }
+      @if (isRecording()) {
+        <button (click)="stopRecording()">⛔ Stop</button>
+      } @else {
+        <button (click)="startRecording()">🎤 Speak</button>
+      }
+    </div>
 
     <p>{{ response() }}</p>
   }
 
-  <!-- IMAGE -->
+  <!-- ✅ IMAGE -->
   @if (mode() === 'image') {
 
     <input
       [value]="message()"
       (input)="updateInput($event)"
       placeholder="Describe image..."
-      style="width: 80%; padding: 10px;"
     />
-
-    <br><br>
 
     <button (click)="generateImage()">Generate</button>
 
     @if (imageUrl()) {
-      <br><br>
-      <img [src]="imageUrl()" width="400" />
+      <img [src]="imageUrl()" />
     }
   }
 
-</div>
+  <!-- ✅ VISION -->
+  @if (mode() === 'vision') {
 
+    @if (!visionImage()) {
+
+      <div class="video-wrapper">
+        <video #video autoplay playsinline></video>
+        <canvas #canvas></canvas>
+      </div>
+
+      <div class="vision-info">
+        <p>🧑 Faces: {{ visionFaces() }}</p>
+
+        @if (visionSmiling()) {
+          <p class="smile">😊 Smiling detected</p>
+        }
+
+        @if (visionCountdown() > 0) {
+          <p class="countdown">⏳ {{ visionCountdown() }}</p>
+        }
+      </div>
+
+    } @else {
+
+      <h3>📸 Captured Image</h3>
+      <img [src]="visionImage()" />
+
+    }
+
+  }
+
+</div>

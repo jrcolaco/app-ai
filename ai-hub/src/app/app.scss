@@ -1,0 +1,77 @@
+.container {
+    width: 750px;
+    margin: 30px auto;
+    text-align: center;
+  }
+  
+  .menu {
+    margin-bottom: 10px;
+  
+    button {
+      margin: 5px;
+      padding: 6px 12px;
+    }
+  }
+  
+  input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .actions {
+    margin-top: 10px;
+  
+    button {
+      margin: 5px;
+    }
+  }
+  
+  img {
+    width: 400px;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+  
+  .loading {
+    color: gray;
+  }
+  
+  .weather {
+    margin-bottom: 10px;
+  }
+  
+  .vision-info {
+    margin-top: 10px;
+  }
+  
+  .smile {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .countdown {
+    font-size: 40px;
+    color: red;
+  }
+  
+  .video-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  video {
+    width: 400px;
+    display: block;
+  }
+  
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 100%;
+    pointer-events: none;
+    object-fit: cover;
+  }
+  

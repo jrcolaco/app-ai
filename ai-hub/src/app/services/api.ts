@@ -38,4 +38,11 @@ export class ApiService {
       `${this.baseUrl}/weather-coords?lat=${lat}&lon=${lon}`
     );
   }
+
+  sendFrame(image: string) {
+    return this.http.post<any>(`${this.baseUrl}/vision/frame`, {
+      image
+    });
+  }
+
 }
