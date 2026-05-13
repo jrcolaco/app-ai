@@ -54,15 +54,16 @@
     font-size: 40px;
     color: red;
   }
-  
   .video-wrapper {
     position: relative;
     display: inline-block;
+    overflow: hidden;
   }
   
   video {
     width: 400px;
     display: block;
+    transition: transform 0.25s ease;
   }
   
   canvas {
@@ -72,9 +73,19 @@
     width: 400px;
     height: 100%;
     pointer-events: none;
-    object-fit: cover;
   }
   
+  /* ✅ zoom effect */
+  .video-wrapper.zoom video {
+    transform: scale(1.08);
+  }
+  
+  /* ✅ capture (blur + dim) */
+  .video-wrapper.capturing video {
+    filter: blur(2px) brightness(0.85);
+  }
+  
+  /* ✅ flash */
   .flash {
     position: absolute;
     inset: 0;
@@ -88,3 +99,26 @@
     transition: opacity 0.15s ease;
   }
   
+  /* ✅ fade image in */
+  img {
+    animation: fadeIn 0.3s ease;
+  }
+
+  
+  .video-wrapper.capturing {
+    animation: shake 0.15s linear;
+  }
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(2px, -1px); }
+  75% { transform: translate(-1px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+

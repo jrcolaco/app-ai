@@ -34,11 +34,16 @@ export class AppComponent implements OnInit, OnDestroy {
   weatherInfo = signal('');
 
   isRecording = signal(false);
-  flash = signal(false);
   visionImage = signal('');
   visionFaces = signal(0);
   visionSmiling = signal(false);
   visionCountdown = signal(0);
+
+
+  flash = signal(false);
+  capturing = signal(false);
+  zoom = signal(false)
+
 
   visionInterval: any = null;
   countdownTimer: any = null;
@@ -98,9 +103,9 @@ export class AppComponent implements OnInit, OnDestroy {
       this.flash.set(false);
     }, 150);
   }
+
   playShutter(): void {
     const audio = new Audio('/assets/shutter.mp3');
-
     audio.play().catch(() => { });
   }
   send(): void {
@@ -308,21 +313,38 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   captureImage(): void {
+
     const video = this.videoRef?.nativeElement;
     const canvas = this.canvasRef?.nativeElement;
 
     if (!video || !canvas || video.videoWidth === 0) return;
 
-    this.playShutter();
-    this.triggerFlash();
-
+    // ✅ ALWAYS capture immediately (CRITICAL)
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext('2d');
-    ctx?.drawImage(video, 0, 0);
+    if (!ctx) return;
 
-    this.visionImage.set(canvas.toDataURL('image/png'));
+    ctx.drawImage(video, 0, 0);
+
+    const image = canvas.toDataURL('image/png');
+
+    // ✅ THEN do cinematic effects
+    this.capturing.set(true);
+    this.zoom.set(true);
+
+    setTimeout(() => {
+      this.playShutter();
+      this.triggerFlash();
+
+      setTimeout(() => {
+        this.visionImage.set(image);
+        this.capturing.set(false);
+        this.zoom.set(false);
+      }, 120);
+
+    }, 80);
   }
 
   playBeep(): void {

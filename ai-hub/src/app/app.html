@@ -10,9 +10,9 @@
   }
 
   <div class="menu">
-    <button (click)="setMode('chat')">💬 Chat</button>
-    <button (click)="setMode('image')">🖼️ Image</button>
-    <button (click)="handleVisionMode()">👁️ Vision</button>
+    <button (click)="setMode('chat')" [disabled]="mode() === 'chat'">💬 Chat</button>
+    <button (click)="setMode('image')" [disabled]="mode() === 'image'">🖼️ Image</button>
+    <button (click)="handleVisionMode()" [disabled]="mode() === 'vision'">👁️ Vision</button>
   </div>
 
   <hr>
@@ -65,8 +65,11 @@
   @if (mode() === 'vision') {
 
     @if (!visionImage()) {
-
-      <div class="video-wrapper">
+      <div
+        class="video-wrapper"
+        [class.zoom]="zoom()"
+        [class.capturing]="capturing()"
+      >
         <video #video autoplay playsinline></video>
         <canvas #canvas></canvas>
         <div class="flash" [class.active]="flash()"></div>
