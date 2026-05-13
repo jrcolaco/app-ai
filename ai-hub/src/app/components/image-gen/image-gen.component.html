@@ -10,7 +10,7 @@
   />
   @if(!imageUrl()) {
         <button 
-            [disabled]="loading()"
+            [disabled]="!message().trim() || loading()"
             (click)="generateImage()"
         >Generate</button>
   }

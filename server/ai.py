@@ -31,17 +31,26 @@ def text_to_speech(text):
     except Exception as e:
         return f"Error: {e}"
 
+from io import BytesIO
+import tempfile
 
 def speech_to_text(audio_file):
     try:
-        response = client.audio.transcriptions.create(
-            model="whisper-1",
-            file=audio_file.file
-        )
+        contents = audio_file.file.read()
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
+            tmp.write(contents)
+            tmp_path = tmp.name
+        with open(tmp_path, "rb") as f:
+            response = client.audio.transcriptions.create(
+                model="whisper-1",
+                file=f
+            )
+
         return response.text
+
     except Exception as e:
         return f"Error: {e}"
-
+    
 def generate_image(prompt):
     try:
         response = client.images.generate(
