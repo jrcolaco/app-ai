@@ -1,30 +1,31 @@
 @if (!visionImage()) {
-
+    <section class="title">
+        <h2>Smile Detector</h2>
+        <p>Position your face in the frame and smile!</p>
+    </section>
     <div
-      class="video-wrapper"
-      [class.zoom]="zoom()"
-      [class.capturing]="capturing()"
+        class="video-wrapper"
+        [class.zoom]="zoom()"
+        [class.capturing]="capturing()"
     >
-  
-      <video #video autoplay playsinline></video>
-      <canvas #canvas></canvas>
-      <div class="flash" [class.active]="flash()"></div>
-  
+        <video #video autoplay playsinline></video>
+        <canvas #canvas></canvas>
+        <div class="flash" [class.active]="flash()"></div>
     </div>
-  
     <div class="vision-info">
-      <p>🧑 Faces: {{ visionFaces() }}</p>
-  
-      @if (visionCountdown() > 0) {
-        <p class="countdown">⏳ {{ visionCountdown() }}</p>
-      }
+        <p>🧑 Faces: {{ visionFaces() }}</p>
+        @if (visionCountdown() > 0) {
+            <p class="countdown">⏳ {{ visionCountdown() }}</p>
+        }
     </div>
-  
-  } @else {
-  
-    <div class="captured">
-      <h3>📸 Captured Image</h3>
-      <img [src]="visionImage()" />
+} @else {
+    <div class="result">
+        <h3>📸 Captured Image</h3>
+        <img [src]="visionImage()" />
+        <div class="actions">
+            <button (click)="downloadImage()">⬇️ Download</button>
+            <button (click)="reset()">🔄 Capture Again</button>
+        </div>
     </div>
-  
-  }
+
+}

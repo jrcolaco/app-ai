@@ -2,21 +2,20 @@
 
     <div class="weather-card">
   
-      <div class="header">
-        📍 {{ weather().location }}, {{ weather().region }}
-      </div>
-  
-      <div class="main">
-        <img [src]="weather().icon" alt="icon" />
-        <div class="temp">
-          {{ weather().temp }}°C
-        </div>
-      </div>
-  
-      <div class="desc">
-        {{ weather().desc }}
-      </div>
-  
+      <main>
+          <div class="header">
+            📍 {{ weather().location }}, {{ weather().region }}
+          </div>
+          <div class="main">
+            <img [src]="weather().icon" alt="icon" />
+            <div class="temp">
+              {{ weather().temp }}°C
+            </div>
+          </div>
+          <div class="desc">
+            {{ weather().desc }}
+          </div>
+      </main>
       <div class="details">
         <span>💨 {{ weather().wind_dir }} {{ weather().wind_kph }} km/h</span>
         <span>💧 {{ weather().humidity }}%</span>

@@ -1,4 +1,4 @@
-<div class="image-container">
+<div class="chat-container">
     @if (loading()) {
         <p class="loading">⏳ Generating...</p>
     }
@@ -7,16 +7,33 @@
         (input)="updateInput($event)"
         (keydown.enter)="send()"
         placeholder="Type or speak..."
+        [disabled]="isRecording() || loading()"
     />
     <div class="actions">
-    <button (click)="send()">Send</button>
-    <button (click)="speak()">🔊 Hear</button>
-
+    <button
+        (click)="send()"
+        [disabled]="!message().trim() || isRecording() || isSpeaking() || loading()"
+    >
+        Send
+    </button>
+    <button
+        (click)="speak()"
+        [disabled]="!lastResponse() || isRecording() || isSpeaking() || loading()"
+    >
+        🔊 Hear
+    </button>
     @if (isRecording()) {
-        <button (click)="stopRecording()">⛔ Stop</button>
+        <button (click)="stopRecording()">
+        ⛔ Stop
+        </button>
     } @else {
-        <button (click)="startRecording()">🎤 Speak</button>
+        <button
+        (click)="startRecording()"
+        [disabled]="isSpeaking() || loading()"
+        >
+        🎤 Speak
+        </button>
     }
     </div>
-    <p>{{ response() }}</p>
+    <p class="response">{{ response() }}</p>
 </div>

@@ -1,8 +1,9 @@
 <div class="container">
 
-  <h1>AI HUB 🚀</h1>
-
-  <app-weather />
+  <section class="header">
+    <h1>AI HUB 🚀</h1>
+    <app-weather />
+  </section>
 
   <div class="menu">
     <button (click)="setMode('chat')" [disabled]="mode() === 'chat'">

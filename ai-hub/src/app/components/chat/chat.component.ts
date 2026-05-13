@@ -13,6 +13,7 @@ export class ChatComponent {
   lastResponse = signal('');
   loading = signal(false);
   isRecording = signal(false);
+  isSpeaking = signal(false);
 
   mediaRecorder: MediaRecorder | null = null;
   chunks: BlobPart[] = [];
@@ -36,9 +37,11 @@ export class ChatComponent {
 
   speak() {
     if (!this.lastResponse()) return;
-
+    this.isSpeaking.set(true);
     this.api.tts(this.lastResponse()).subscribe((res: any) => {
-      new Audio(`data:audio/wav;base64,${res.audio}`).play();
+      const audio = new Audio(`data:audio/wav;base64,${res.audio}`);
+      audio.onended = () => this.isSpeaking.set(false);
+      audio.play();
     });
   }
 

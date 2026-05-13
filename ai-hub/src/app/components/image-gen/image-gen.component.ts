@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api';
 
 @Component({
@@ -15,11 +14,24 @@ export class ImageGenComponent {
 
   constructor(
     private api: ApiService,
-    private sanitizer: DomSanitizer
   ) { }
 
   updateInput(e: Event) {
     this.message.set((e.target as HTMLInputElement).value);
+  }
+
+  downloadImage() {
+    const url = this.imageUrl();
+    if (!url) return;
+
+    const link = document.createElement('a');
+    link.href = url as string;
+    link.download = 'generated-image.png';
+    link.click();
+  }
+
+  reset() {
+    this.imageUrl.set('');
   }
 
   generateImage() {
@@ -27,9 +39,7 @@ export class ImageGenComponent {
 
     this.api.image(this.message()).subscribe({
       next: (res: any) => {
-        this.imageUrl.set(
-          this.sanitizer.bypassSecurityTrustUrl(res.url)
-        );
+        this.imageUrl.set(res.url);
         this.loading.set(false);
       },
       error: () => this.loading.set(false)

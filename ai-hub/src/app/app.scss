@@ -5,7 +5,15 @@
 app-weather {
   align-self: center;
 }
-  
+
+section.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 60em;
+}
+
 .container {
   display: flex;
   flex-direction: column;

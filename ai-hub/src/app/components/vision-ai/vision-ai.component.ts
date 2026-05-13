@@ -306,4 +306,19 @@ export class VisionAiComponent implements AfterViewInit, OnDestroy {
     this.visionSmiling.set(false);
     this.visionCountdown.set(0);
   }
+
+  downloadImage() {
+    const url = this.visionImage();
+    if (!url) return;
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'capture.png';
+    link.click();
+  }
+
+  reset() {
+    this.visionImage.set('');
+    this.startVision();
+  }
 }

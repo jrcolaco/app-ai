@@ -3,16 +3,27 @@
     <p class="loading">⏳ Generating...</p>
   }
   <input
+    [disabled]="loading() || !!imageUrl()"
     [value]="message()"
     (input)="updateInput($event)"
     placeholder="Describe image..."
   />
+  @if(!imageUrl()) {
+        <button 
+            [disabled]="loading()"
+            (click)="generateImage()"
+        >Generate</button>
+  }
 
-  <button (click)="generateImage()">Generate</button>
 
   @if (imageUrl()) {
     <div class="result">
-      <img [src]="imageUrl()" />
+        <h3>📸 Generated Image</h3>
+        <img [src]="imageUrl()" />
+        <div class="actions">
+            <button (click)="downloadImage()">⬇️ Download</button>
+            <button (click)="reset()">🔄 Generate Again</button>
+        </div>
     </div>
   }
 </div>

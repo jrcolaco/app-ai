@@ -6,10 +6,19 @@
     color: white;
     width: 14em;
     margin-bottom: 1em;
+    display: flex;
+    gap: 1em;
+    width: 100%;
+    justify-content: space-between;
   }
   
+  main {
+    text-align: center;
+  }
+
   .header {
     opacity: 0.8;
+    font-size: 1.2em;
   }
   
   .main {
@@ -30,12 +39,21 @@
   .desc {
     margin-top: .2em;
     opacity: 0.8;
+    font-size: 1.4em;
+    color: #94a3b8;
+    font-weight: 700;
   }
   
   .details {
     margin-top: .8em;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    font-size: .9em;
-    gap: .3em;
+    font-size: 1.1em;
+    gap: .8em;
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
   }
