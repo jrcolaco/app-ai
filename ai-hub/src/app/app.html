@@ -2,98 +2,34 @@
 
   <h1>AI HUB 🚀</h1>
 
-  @if (locationName()) {
-    <p class="weather">
-      📍 {{ locationName() }} <br>
-      🌦️ {{ weatherInfo() }}
-    </p>
-  }
+  <app-weather />
 
   <div class="menu">
-    <button (click)="setMode('chat')" [disabled]="mode() === 'chat'">💬 Chat</button>
-    <button (click)="setMode('image')" [disabled]="mode() === 'image'">🖼️ Image</button>
-    <button (click)="handleVisionMode()" [disabled]="mode() === 'vision'">👁️ Vision</button>
+    <button (click)="setMode('chat')" [disabled]="mode() === 'chat'">
+      💬 Chat
+    </button>
+
+    <button (click)="setMode('image')" [disabled]="mode() === 'image'">
+      🖼️ Image
+    </button>
+
+    <button (click)="setMode('vision')" [disabled]="mode() === 'vision'">
+      👁️ Vision
+    </button>
   </div>
 
-  <hr>
-
-  @if (loading()) {
-    <p class="loading">⏳ Loading...</p>
-  }
-
-  <!-- ✅ CHAT -->
-  @if (mode() === 'chat') {
-
-    <input
-      [value]="message()"
-      (input)="updateInput($event)"
-      (keydown.enter)="send()"
-      placeholder="Type or speak..."
-    />
-
-    <div class="actions">
-      <button (click)="send()">Send</button>
-      <button (click)="speak()">🔊 Hear</button>
-
-      @if (isRecording()) {
-        <button (click)="stopRecording()">⛔ Stop</button>
-      } @else {
-        <button (click)="startRecording()">🎤 Speak</button>
-      }
-    </div>
-
-    <p>{{ response() }}</p>
-  }
-
-  <!-- ✅ IMAGE -->
-  @if (mode() === 'image') {
-
-    <input
-      [value]="message()"
-      (input)="updateInput($event)"
-      placeholder="Describe image..."
-    />
-
-    <button (click)="generateImage()">Generate</button>
-
-    @if (imageUrl()) {
-      <img [src]="imageUrl()" />
-    }
-  }
-
-  <!-- ✅ VISION -->
-  @if (mode() === 'vision') {
-
-    @if (!visionImage()) {
-      <div
-        class="video-wrapper"
-        [class.zoom]="zoom()"
-        [class.capturing]="capturing()"
-      >
-        <video #video autoplay playsinline></video>
-        <canvas #canvas></canvas>
-        <div class="flash" [class.active]="flash()"></div>
-      </div>
-
-      <div class="vision-info">
-        <p>🧑 Faces: {{ visionFaces() }}</p>
-
-        @if (visionSmiling()) {
-          <p class="smile">😊 Smiling detected</p>
-        }
-
-        @if (visionCountdown() > 0) {
-          <p class="countdown">⏳ {{ visionCountdown() }}</p>
-        }
-      </div>
-
-    } @else {
-
-      <h3>📸 Captured Image</h3>
-      <img [src]="visionImage()" />
-
+  <div class="content">
+    @if (mode() === 'chat') {
+      <app-chat />
     }
 
-  }
+    @if (mode() === 'image') {
+      <app-image-gen />
+    }
+
+    @if (mode() === 'vision') {
+      <app-vision-ai />
+    }
+  </div>
 
 </div>

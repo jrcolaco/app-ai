@@ -1,124 +1,91 @@
+:host {
+  display: block;
+}
+
+app-weather {
+  align-self: center;
+}
+  
 .container {
-    width: 750px;
-    margin: 30px auto;
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5em;
+  flex-wrap: wrap;
   
+  button {
+    padding: 1em 2.5em;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #1e293b;
+    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    font-size: 1.5em;
+    
+    &:hover {
+      transform: translateY(-2px);
+      background: #334155;
+    }
+    
+    &:disabled {
+      background: #3b82f6;
+      cursor: default;
+      transform: none;
+    }
+  }
+}
+  
+.content {
+  width: 100%;
+  max-width: 600px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  
+  gap: 20px;
+}
+  
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+@media (max-width: 600px) {
   .menu {
-    margin-bottom: 10px;
-  
+    flex-direction: column;
+    width: 100%;
+    
     button {
-      margin: 5px;
-      padding: 6px 12px;
+      width: 100%;
     }
   }
-  
-  input {
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .actions {
-    margin-top: 10px;
-  
-    button {
-      margin: 5px;
-    }
-  }
-  
-  img {
-    width: 400px;
-    margin-top: 10px;
-    border-radius: 8px;
-  }
-  
-  .loading {
-    color: gray;
-  }
-  
-  .weather {
-    margin-bottom: 10px;
-  }
-  
-  .vision-info {
-    margin-top: 10px;
-  }
-  
-  .smile {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .countdown {
-    font-size: 40px;
-    color: red;
-  }
-  .video-wrapper {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-  }
-  
-  video {
-    width: 400px;
-    display: block;
-    transition: transform 0.25s ease;
-  }
-  
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 400px;
-    height: 100%;
-    pointer-events: none;
-  }
-  
-  /* ✅ zoom effect */
-  .video-wrapper.zoom video {
-    transform: scale(1.08);
-  }
-  
-  /* ✅ capture (blur + dim) */
-  .video-wrapper.capturing video {
-    filter: blur(2px) brightness(0.85);
-  }
-  
-  /* ✅ flash */
-  .flash {
-    position: absolute;
-    inset: 0;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .flash.active {
-    opacity: 1;
-    transition: opacity 0.15s ease;
-  }
-  
-  /* ✅ fade image in */
-  img {
-    animation: fadeIn 0.3s ease;
-  }
 
-  
-  .video-wrapper.capturing {
-    animation: shake 0.15s linear;
+  .content {
+    max-width: 100%;
   }
-
-@keyframes shake {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-2px, 1px); }
-  50% { transform: translate(2px, -1px); }
-  75% { transform: translate(-1px, 2px); }
-  100% { transform: translate(0, 0); }
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+  

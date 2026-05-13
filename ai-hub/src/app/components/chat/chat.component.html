@@ -1,0 +1,22 @@
+<div class="image-container">
+    @if (loading()) {
+        <p class="loading">⏳ Generating...</p>
+    }
+    <input
+        [value]="message()"
+        (input)="updateInput($event)"
+        (keydown.enter)="send()"
+        placeholder="Type or speak..."
+    />
+    <div class="actions">
+    <button (click)="send()">Send</button>
+    <button (click)="speak()">🔊 Hear</button>
+
+    @if (isRecording()) {
+        <button (click)="stopRecording()">⛔ Stop</button>
+    } @else {
+        <button (click)="startRecording()">🎤 Speak</button>
+    }
+    </div>
+    <p>{{ response() }}</p>
+</div>

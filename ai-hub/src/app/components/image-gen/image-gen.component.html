@@ -1,0 +1,18 @@
+<div class="image-container">
+  @if (loading()) {
+    <p class="loading">⏳ Generating...</p>
+  }
+  <input
+    [value]="message()"
+    (input)="updateInput($event)"
+    placeholder="Describe image..."
+  />
+
+  <button (click)="generateImage()">Generate</button>
+
+  @if (imageUrl()) {
+    <div class="result">
+      <img [src]="imageUrl()" />
+    </div>
+  }
+</div>

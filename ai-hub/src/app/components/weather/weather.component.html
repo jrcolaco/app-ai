@@ -1,0 +1,29 @@
+@if (weather()) {
+
+    <div class="weather-card">
+  
+      <div class="header">
+        📍 {{ weather().location }}, {{ weather().region }}
+      </div>
+  
+      <div class="main">
+        <img [src]="weather().icon" alt="icon" />
+        <div class="temp">
+          {{ weather().temp }}°C
+        </div>
+      </div>
+  
+      <div class="desc">
+        {{ weather().desc }}
+      </div>
+  
+      <div class="details">
+        <span>💨 {{ weather().wind_dir }} {{ weather().wind_kph }} km/h</span>
+        <span>💧 {{ weather().humidity }}%</span>
+        <span>🌧️ {{ weather().chance_of_rain }}%</span>
+        <span>🌞 UV {{ weather().uv }}</span>
+      </div>
+  
+    </div>
+  
+  }

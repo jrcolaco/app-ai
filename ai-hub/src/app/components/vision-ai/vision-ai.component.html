@@ -1,0 +1,30 @@
+@if (!visionImage()) {
+
+    <div
+      class="video-wrapper"
+      [class.zoom]="zoom()"
+      [class.capturing]="capturing()"
+    >
+  
+      <video #video autoplay playsinline></video>
+      <canvas #canvas></canvas>
+      <div class="flash" [class.active]="flash()"></div>
+  
+    </div>
+  
+    <div class="vision-info">
+      <p>🧑 Faces: {{ visionFaces() }}</p>
+  
+      @if (visionCountdown() > 0) {
+        <p class="countdown">⏳ {{ visionCountdown() }}</p>
+      }
+    </div>
+  
+  } @else {
+  
+    <div class="captured">
+      <h3>📸 Captured Image</h3>
+      <img [src]="visionImage()" />
+    </div>
+  
+  }

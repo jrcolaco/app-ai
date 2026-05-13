@@ -11,7 +11,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -45,8 +45,6 @@ def weather(location: str):
 @app.get("/weather-coords")
 def weather_coords(lat: float, lon: float):
     return get_weather_by_coords(lat, lon)
-
-# ✅ ✅ ✅ VISION (NEW ARCHITECTURE ONLY)
 
 class FrameRequest(BaseModel):
     image: str
