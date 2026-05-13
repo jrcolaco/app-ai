@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   weatherInfo = signal('');
 
   isRecording = signal(false);
-
+  flash = signal(false);
   visionImage = signal('');
   visionFaces = signal(0);
   visionSmiling = signal(false);
@@ -91,7 +91,18 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     });
   }
+  triggerFlash(): void {
+    this.flash.set(true);
 
+    setTimeout(() => {
+      this.flash.set(false);
+    }, 150);
+  }
+  playShutter(): void {
+    const audio = new Audio('/assets/shutter.mp3');
+
+    audio.play().catch(() => { });
+  }
   send(): void {
     if (!this.message().trim()) return;
 
@@ -302,7 +313,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if (!video || !canvas || video.videoWidth === 0) return;
 
-    this.playBeep();
+    this.playShutter();
+    this.triggerFlash();
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -333,6 +345,7 @@ export class AppComponent implements OnInit, OnDestroy {
       console.warn('Beep failed:', e);
     }
   }
+
 
   // ✅ STOP EVERYTHING
   stopVision(): void {

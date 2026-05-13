@@ -75,3 +75,16 @@
     object-fit: cover;
   }
   
+  .flash {
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .flash.active {
+    opacity: 1;
+    transition: opacity 0.15s ease;
+  }
+  
