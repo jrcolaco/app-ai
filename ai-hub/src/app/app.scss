@@ -16,6 +16,7 @@ section.header {
   justify-content: space-between;
   width: 100%;
   max-width: 60em;
+  margin-top: 2em;
 }
 
 .container {
@@ -24,8 +25,7 @@ section.header {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding: 20px;
-  gap: 20px;
+  gap: 1em;
 }
 
 h1 {
