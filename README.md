@@ -4,7 +4,7 @@
 
 📁 STRUCTURE
 
-📦 app-ai/   → Angular frontend  
+📦 app-ai/   → Angular frontend
 🐍 server/   → Python 3.11 backend (Flask)
 📁 Docs/     → PDF and Docs about AI
 
