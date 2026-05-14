@@ -58,7 +58,7 @@ def generate_image(prompt):
         response = client.images.generate(
             model="gpt-image-1",
             prompt=prompt,
-            size="1024x1024"
+            size="1536x1024"
         )
 
         image = response.data[0]
