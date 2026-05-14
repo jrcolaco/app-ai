@@ -4,9 +4,9 @@
 
 📁 STRUCTURE
 
-📦 app-ai/   → Angular frontend
-🐍 server/   → Python 3.11 backend (Flask)
-📁 Docs/     → PDF and Docs about AI
+📦 app-ai/   → Angular frontend  
+🐍 server/   → Python 3.11 backend (Flask)  
+📄 Docs/     → PDF and Docs about AI  
 
 ---
 
@@ -43,8 +43,8 @@ npm run start
 
 🔑 ENVIRONMENT VARIABLES (create .env inside server)
 
-OPENAI_API_KEY=your_key
-WEATHER_API_KEY=your_key
+OPENAI_API_KEY=your_key  
+WEATHER_API_KEY=your_key  
 
 ---
 
@@ -61,6 +61,4 @@ WEATHER_API_KEY=your_key
 ⚡ Backend uses Flask (not FastAPI)  
 🐍 Python 3.11 required  
 🌐 Use Chrome for best compatibility  
-🎤 Requires microphone and location permissions  
-
-
+🎤 Requires microphone and location permissions 
