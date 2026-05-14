@@ -1,4 +1,4 @@
-🚀 AI HUB🚀 AI HUB chat, voice, image generation, and weather.
+🚀 AI HUB: chat, voice, image generation, and weather.
 
 ---
 
