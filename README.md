@@ -1,19 +1,17 @@
-AI HUB
-
-Full-stack AI app with chat, voice, image generation, and weather.
+🚀 AI HUB🚀 AI HUB chat, voice, image generation, and weather.
 
 ---
 
-STRUCTURE
+📁 STRUCTURE
 
-app-ai/   → Angular frontend
-server/   → Python 3.11 backend (Flask)
+📦 app-ai/   → Angular frontend  
+🐍 server/   → Python 3.11 backend (Flask)
 
 ---
 
-SETUP
+⚙️ SETUP
 
-1. Create and activate Python environment (run in project root)
+1️⃣ Create and activate Python environment (run in project root)
 
 python -m venv devIA311
 echo "alias aVenv311='source devIA311/Scripts/activate'" >> ~/.bashrc
@@ -22,44 +20,46 @@ aVenv311
 
 ---
 
-2. Backend (Flask)
+2️⃣ Backend (Flask)
 
 cd server
 npm run install
 npm run start
 
-API runs at: http://localhost:5000
+🌐 API: http://localhost:5000
 
 ---
 
-3. Frontend (Angular)
+3️⃣ Frontend (Angular)
 
 cd app-ai
 npm install
 npm run start
 
-App runs at: http://localhost:4200
+🖥️ App: http://localhost:4200
 
 ---
 
-ENVIRONMENT VARIABLES (create .env inside server)
+🔑 ENVIRONMENT VARIABLES (create .env inside server)
 
 OPENAI_API_KEY=your_key
 WEATHER_API_KEY=your_key
 
 ---
 
-FEATURES
+✨ FEATURES
 
-- Chat + Voice + Text-to-Speech
-- Image generation
-- Automatic weather detection
+💬 Chat + Voice + Text-to-Speech  
+🖼️ Image generation  
+🌍 Automatic weather detection  
 
 ---
 
-NOTES
+📝 NOTES
 
-- Backend uses Flask (not FastAPI)
-- Python 3.11 required
-- Use Chrome for best compatibility
-- Requires microphone and location permissions
+⚡ Backend uses Flask (not FastAPI)  
+🐍 Python 3.11 required  
+🌐 Use Chrome for best compatibility  
+🎤 Requires microphone and location permissions  
+
+
