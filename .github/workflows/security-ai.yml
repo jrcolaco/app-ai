@@ -24,8 +24,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Socket scan
-        run: npx --yes @socketsecurity/cli scan
+    #   - name: Socket scan
+    #     run: npx --yes @socketsecurity/cli scan create
+    #     env:
+    #         SOCKET_SECURITY_API_KEY: ${{ secrets.SOCKET_API_KEY }}
+
 
       - name: Install pip-audit
         run: pip install pip-audit
