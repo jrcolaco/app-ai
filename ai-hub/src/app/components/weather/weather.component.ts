@@ -20,11 +20,9 @@ export class WeatherComponent implements OnInit {
     navigator.geolocation.getCurrentPosition(pos => {
       const lat = pos.coords.latitude;
       const lon = pos.coords.longitude;
-      console.log('Got location:', lat, lon);
 
       this.api.weatherCoords(lat, lon).subscribe({
         next: (res) => {
-          console.log('Weather data:', res);
           this.weather.set(res);
         },
         error: (err) => {

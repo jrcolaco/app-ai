@@ -1,0 +1,8 @@
+flask
+flask-cors
+python-multipart
+openai
+requests
+numpy==1.26.4
+opencv-python-headless
+dotenv

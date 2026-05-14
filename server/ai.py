@@ -36,10 +36,12 @@ import tempfile
 
 def speech_to_text(audio_file):
     try:
-        contents = audio_file.file.read()
+        contents = audio_file.read()
+
         with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
             tmp.write(contents)
             tmp_path = tmp.name
+
         with open(tmp_path, "rb") as f:
             response = client.audio.transcriptions.create(
                 model="whisper-1",

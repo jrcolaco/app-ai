@@ -1,0 +1,61 @@
+name: Deploy Full App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 18
+
+      - name: Install Angular deps
+        working-directory: ai-hub
+        run: npm install
+
+      - name: Build Angular
+        working-directory: ai-hub
+        run: npm run build -- --configuration=production --base-href=/ai/ --deploy-url=/ai/
+
+      - name: Deploy frontend
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
+          local-dir: ai-hub/dist/browser/
+          server-dir: public_html/ai/
+          dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/node_modules/**
+            **/.github/**
+
+      - name: Deploy backend
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
+          local-dir: server/
+          server-dir: hub-ai/
+          exclude: |
+            **/__pycache__/**
+            **/*.pyc
+            **/*.log
+            **/tmp/**
+            **/.git*
+            **/.github/**

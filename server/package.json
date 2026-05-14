@@ -1,6 +1,6 @@
 {
   "name": "server",
   "scripts": {
-    "start": "uvicorn main:app --reload"
+    "start": "python main.py"
   }
 }

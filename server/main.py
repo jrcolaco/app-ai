@@ -1,54 +1,78 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+from vision import process_frame
 from ai import chat_response, text_to_speech, generate_image, speech_to_text
 from weather import get_weather, get_weather_by_coords
-from vision import process_frame
 
-app = FastAPI()
 
-# ✅ allow Angular
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = Flask(__name__)
+CORS(app)
+
+
+# ---------- ROOT ----------
+@app.route("/")
+def root():
+    return jsonify({"status": "running ✅"})
+
 
 # ---------- CHAT ----------
-@app.post("/chat")
-async def chat(data: dict):
-    return {"response": chat_response(data["message"])}
+@app.route("/chat", methods=["POST"])
+def chat():
+    data = request.get_json()
+    return jsonify({
+        "response": chat_response(data["message"])
+    })
+
 
 # ---------- TEXT → SPEECH ----------
-@app.post("/tts")
-async def tts(data: dict):
+@app.route("/tts", methods=["POST"])
+def tts():
+    data = request.get_json()
     audio = text_to_speech(data["text"])
-    return {"audio": audio}
+    return jsonify({
+        "audio": audio
+    })
+
 
 # ---------- SPEECH → TEXT ----------
-@app.post("/stt")
-async def stt(file: UploadFile = File(...)):
-    return {"text": speech_to_text(file)}
+@app.route("/stt", methods=["POST"])
+def stt():
+    file = request.files["file"]
+    return jsonify({
+        "text": speech_to_text(file)
+    })
+
 
 # ---------- IMAGE ----------
-@app.post("/image")
-async def image(data: dict):
-    return {"url": generate_image(data["prompt"])}
+@app.route("/image", methods=["POST"])
+def image():
+    data = request.get_json()
+    return jsonify({
+        "url": generate_image(data["prompt"])
+    })
+
 
 # ---------- WEATHER ----------
-@app.get("/weather")
-def weather(location: str):
-    return get_weather(location)
+@app.route("/weather", methods=["GET"])
+def weather():
+    location = request.args.get("location")
+    return jsonify(get_weather(location))
 
-@app.get("/weather-coords")
-def weather_coords(lat: float, lon: float):
-    return get_weather_by_coords(lat, lon)
 
-class FrameRequest(BaseModel):
-    image: str
+@app.route("/weather-coords", methods=["GET"])
+def weather_coords():
+    lat = float(request.args.get("lat"))
+    lon = float(request.args.get("lon"))
+    return jsonify(get_weather_by_coords(lat, lon))
 
-@app.post("/vision/frame")
-def vision_frame(req: FrameRequest):
-    return process_frame(req.image)
+
+# ---------- VISION ----------
+@app.route("/vision/frame", methods=["POST"])
+def vision_frame():
+    data = request.get_json()
+    return jsonify(process_frame(data["image"]))
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

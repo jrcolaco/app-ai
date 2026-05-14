@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:8000';
+  // private baseUrl = 'http://localhost:5000';
+  private baseUrl = 'https://jcolaco.dev/hub-ai';
 
   constructor(private http: HttpClient) { }
 

@@ -263,7 +263,7 @@ export class VisionAiComponent implements AfterViewInit, OnDestroy {
   }
 
   playShutter(): void {
-    new Audio('/assets/shutter.mp3').play().catch(() => { });
+    new Audio('/ai/assets/shutter.mp3').play().catch(() => { });
   }
 
   playBeep(): void {
