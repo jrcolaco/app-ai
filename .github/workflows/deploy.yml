@@ -6,7 +6,11 @@ on:
       - master
 
 jobs:
+  security:
+    uses: ./.github/workflows/security-ai.yml
+
   deploy:
+    needs: security
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +24,7 @@ jobs:
 
       - name: Install Angular deps
         working-directory: ai-hub
-        run: npm install
+        run: npm ci --ignore-scripts
 
       - name: Build Angular
         working-directory: ai-hub

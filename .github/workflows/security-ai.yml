@@ -1,0 +1,74 @@
+name: Security & AI Checks
+
+on:
+  workflow_call:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/krypton
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Socket scan
+        run: npx --yes @socketsecurity/cli scan
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Python vulnerability scan
+        working-directory: server
+        run: pip-audit -r requirements.txt
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, python
+
+      - name: Analyze CodeQL
+        uses: github/codeql-action/analyze@v3
+
+      - name: Analyze git diff
+        run: |
+          git diff HEAD~1 > diff.txt || echo "no diff" > diff.txt
+
+      - name: AI Security Review
+        env:
+            OPENAI_API_KEY: ${ secrets.OPENAI_API_KEY }
+        run: |
+          npm install openai
+          node -e "
+          const fs = require('fs');
+          const OpenAI = require('openai');
+
+          const diff = fs.readFileSync('diff.txt','utf8');
+          if (!diff || diff.length < 10) process.exit(0);
+
+          const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+          (async () => {
+            const res = await openai.chat.completions.create({
+              model: 'gpt-4.1-mini',
+              messages: [
+                { role: 'system', content: 'Identify security risks, malicious patterns, or suspicious changes. Be concise.' },
+                { role: 'user', content: diff.slice(0, 5000) }
+              ]
+            });
+
+            console.log(res.choices[0].message.content);
+          })();
+          "
