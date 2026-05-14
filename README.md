@@ -1,148 +1,65 @@
-# 🚀 AI HUB
+AI HUB
 
-A full-stack AI application that combines chat, voice interaction, image generation, and automatic weather detection in a single modern interface.
-
----
-
-## 🧠 Features
-
-### 💬 Chat Assistant
-- Ask questions using text
-- AI-generated responses (OpenAI)
-- Press Enter to send
-
-### 🎤 Voice Interaction
-- Speak instead of typing
-- Converts voice to text, then sends to AI
-- Integrated directly into chat
-
-### 🔊 Text-to-Speech
-- Listen to AI responses
-- Realistic voice playback
-
-### 🖼️ Image Generator
-- Describe an image
-- Generate it using AI
-
-### 🌍 Smart Weather Detection
-- Automatically detects user location
-- Displays weather info on startup
-- No manual input required
+Full-stack AI app with chat, voice, image generation, and weather.
 
 ---
 
-## 🏗️ Tech Stack
+STRUCTURE
 
-Frontend:
-- Angular (Standalone Components)
-- Angular Signals
-- HTML / CSS
-
-Backend:
-- FastAPI (Python)
-- OpenAI API
-- WeatherAPI
+app-ai/   → Angular frontend
+server/   → Python 3.11 backend (Flask)
 
 ---
 
-## 📁 Project Structure
+SETUP
 
-project/
-  ai-hub/    (Angular frontend)
-  server/    (FastAPI backend)
-  README.md
+1. Create and activate Python environment (run in project root)
 
----
-
-## ⚙️ Setup
-
-Clone repository:
-
-git clone YOUR_REPO_URL
-cd project
+python -m venv devIA311
+echo "alias aVenv311='source devIA311/Scripts/activate'" >> ~/.bashrc
+source ~/.bashrc
+aVenv311
 
 ---
 
-## 🌐 Frontend (Angular)
-
-cd ai-hub
-npm install
-ng serve
-
-Open:
-http://localhost:4200
-
----
-
-## 🐍 Backend (FastAPI)
+2. Backend (Flask)
 
 cd server
-pip install fastapi uvicorn openai python-dotenv requests python-multipart
-uvicorn main:app --reload
+npm run install
+npm run start
 
-Open:
-http://localhost:8000
-
-Docs:
-http://localhost:8000/docs
+API runs at: http://localhost:5000
 
 ---
 
-## 🔑 Environment Variables
+3. Frontend (Angular)
 
-Create a .env file inside the server folder:
+cd app-ai
+npm install
+npm run start
 
-OPENAI_API_KEY=your_openai_key
-WEATHER_API_KEY=your_weather_key
-
----
-
-## 🔗 API Endpoints
-
-/chat → AI text response  
-/tts → Text to speech  
-/stt → Speech to text  
-/image → Generate image  
-/weather-coords → Weather by location  
+App runs at: http://localhost:4200
 
 ---
 
-## 🎯 Usage
+ENVIRONMENT VARIABLES (create .env inside server)
 
-1. Open the app
-2. Allow location access
-3. Use chat (type or speak)
-4. Generate images
-5. Use voice buttons to speak or listen
+OPENAI_API_KEY=your_key
+WEATHER_API_KEY=your_key
 
 ---
 
-## ✅ Highlights
+FEATURES
 
-- Modern Angular (signals, no ngModel)
-- Full voice pipeline
+- Chat + Voice + Text-to-Speech
+- Image generation
 - Automatic weather detection
-- Clean and simple UI
 
 ---
 
-## 🚀 Future Improvements
+NOTES
 
-- Chat history
-- Typing animation
-- Better UI styling
-- Deployment online
-
----
-
-## 👨‍💻 Author
-
-Full-stack AI project combining Angular and FastAPI.
-
----
-
-## ⭐ Notes
-
-- Works best in Chrome
-- Requires internet connection
+- Backend uses Flask (not FastAPI)
+- Python 3.11 required
+- Use Chrome for best compatibility
 - Requires microphone and location permissions
